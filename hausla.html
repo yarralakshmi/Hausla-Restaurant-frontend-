@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Hausla Restaurant</title>
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family:"Poppins", sans-serif; color:#fff; text-align:center; background:#000; overflow-x:hidden; }
+.page { display:none; min-height:100vh; align-items:center; justify-content:center; flex-direction:column; padding-bottom:60px; }
+
+#home { display:flex; background:url("https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=1500&q=80") center/cover no-repeat; }
+#home h1 { font-size:70px; text-shadow:3px 3px 10px #000; }
+#home button { margin-top:30px; padding:15px 40px; font-size:22px; border:none; border-radius:10px; background:#ff7043; color:#fff; cursor:pointer; transition:0.3s; }
+#home button:hover { background:#ff5722; transform:scale(1.05); }
+
+#menu { background:linear-gradient(135deg,#ffb74d,#ff7043); padding:30px 10px; display:none; flex-direction:column; }
+#menu h1 { font-size:45px; margin-bottom:25px; text-shadow:2px 2px 6px #000; }
+.categories { display:flex; flex-wrap:wrap; justify-content:center; gap:20px; }
+.cat { background:#fff3e0; color:#000; width:220px; border-radius:15px; overflow:hidden; cursor:pointer; transition:0.3s; }
+.cat:hover { transform:scale(1.05); }
+.cat img { width:100%; height:150px; object-fit:cover; }
+.cat h3 { padding:10px; font-size:22px; background:#ff7043; color:#fff; }
+
+#items { display:none; background:linear-gradient(135deg,#ff7043,#ffb74d); flex-direction:column; padding:20px; }
+#items h2 { margin-bottom:15px; font-size:40px; text-shadow:2px 2px 5px #000; }
+.menu-section { margin:20px auto; width:90%; max-width:600px; background:rgba(0,0,0,0.3); padding:20px; border-radius:15px; box-shadow:0 4px 10px rgba(0,0,0,0.4); }
+.menu-section h3 { font-size:28px; margin-bottom:15px; text-align:center; color:#ffd54f; }
+ul { list-style:none; padding:0; }
+li { font-size:20px; margin:10px 0; display:flex; justify-content:space-between; border-bottom:1px dashed #fff; padding-bottom:5px; cursor:pointer; transition:0.3s; }
+li:hover { background:rgba(255,255,255,0.6); color:#000; border-radius:8px; }
+
+.bottom-btns { margin-top:20px; display:flex; justify-content:center; gap:20px; }
+button { background:#2e7d32; border:none; padding:12px 25px; color:#fff; font-size:18px; border-radius:8px; cursor:pointer; transition:0.3s; }
+button:hover { background:#1b5e20; transform:scale(1.05); }
+
+#selectedItems { margin-top:20px; background:rgba(0,0,0,0.4); padding:15px; border-radius:15px; width:90%; max-width:600px; text-align:left; box-shadow:0 4px 10px rgba(0,0,0,0.3); }
+#selectedItems h3 { text-align:center; color:#ffeb3b; margin-bottom:10px; }
+.sel-item { display:flex; justify-content:space-between; margin:5px 0; border-bottom:1px dashed #fff; padding-bottom:5px; font-size:18px; }
+.cancel-btn { background:#c62828; padding:2px 8px; border-radius:5px; font-size:14px; margin-left:10px; cursor:pointer; color:#fff; }
+
+#bill { display:none; background:linear-gradient(135deg,#ffb74d,#ff7043); flex-direction:column; padding:30px; }
+.bill-box { margin:20px auto; width:80%; max-width:500px; background:rgba(0,0,0,0.4); padding:20px; border-radius:15px; box-shadow:0 4px 10px rgba(0,0,0,0.4); }
+.bill-item { display:flex; justify-content:space-between; margin:5px 0; }
+.total { border-top:2px solid #fff; margin-top:10px; padding-top:10px; font-size:22px; font-weight:bold; color:#ffd54f; }
+
+#thankyou { display:none; background:url(https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1500&q=80) center/cover no-repeat;
+ center/cover no-repeat; flex-direction:column; align-items:center; justify-content:center; }
+#thankyou h1 { font-size:60px; text-shadow:3px 3px 10px #000; }
+#thankyou h2 { margin-top:20px; font-size:35px; color:#ffeb3b; text-shadow:2px 2px 5px #000; }
+</style>
+</head>
+<body>
+
+<div id="home" class="page">
+<h1>🍴 Hausla Restaurant 🍛</h1>
+<button onclick="showPage('menu')">View Menu</button>
+</div>
+
+<div id="menu" class="page">
+<h1>Choose a Category</h1>
+<div class="categories">
+  <div class="cat" onclick="showItems('Veg')"><img src="C:/Users/yarra/OneDrive/ドキュメント/html/hausla/veg.jpeg" alt="Veg"><h3>🥗 Veg</h3></div>
+  <div class="cat" onclick="showItems('NonVeg')"><img src="C:/Users/yarra/OneDrive/ドキュメント/html/hausla/non-veg.jpeg" alt="NonVeg"><h3>🍗 Non-Veg</h3></div>
+  <div class="cat" onclick="showItems('Vegan')"><img src="C:/Users/yarra/OneDrive/ドキュメント/html/hausla/vegan.jpeg" alt="Vegan"><h3>🥦 Vegan</h3></div>
+  <div class="cat" onclick="showItems('Eggatarian')"><img src="C:/Users/yarra/OneDrive/ドキュメント/html/hausla/eggtarian.jpeg" alt="Eggatarian"><h3>🥚 Eggatarian</h3></div>
+  <div class="cat" onclick="showItems('Desserts')"><img src="https://images.unsplash.com/photo-1551024506-0bccd828d307?auto=format&fit=crop&w=400&q=80" alt="Desserts"><h3>🍰 Desserts</h3></div>
+</div>
+</div>
+
+<div id="items" class="page">
+<h2 id="categoryTitle"></h2>
+<div class="menu-section" id="starterList"><h3>🥢 Starters</h3><ul></ul></div>
+<div class="menu-section" id="mealList"><h3>🍽 Full Meals</h3><ul></ul></div>
+<div id="selectedItems">
+<h3>🧾 Your Selected Items</h3>
+<div id="selectedList">No items added yet.</div>
+</div>
+<div class="bottom-btns">
+<button onclick="showPage('menu')">⬅ Back to Menu</button>
+<button onclick="showPage('bill')">🧾 View Bill</button>
+</div>
+</div>
+
+<div id="bill" class="page">
+<div class="bill-box">
+<div id="billItems"></div>
+<div class="total" id="billTotal">Total: ₹0</div>
+</div>
+<div class="bottom-btns">
+<button onclick="showPage('menu')">⬅ Back to Menu</button>
+<button onclick="confirmBill()">✅ Confirm Bill</button>
+</div>
+</div>
+
+<div id="thankyou" class="page">
+<h1>Thank You!</h1>
+<h2>Visit Again 🙏</h2>
+</div>
+
+<script>
+const pages = document.querySelectorAll(".page");
+let total = 0;
+let billList = [];
+
+const menuItems = {
+  Veg:{ starters:[{name:"Paneer Tikka", price:150},{name:"Spring Rolls", price:120},{name:"Crispy Corn", price:130},{name:"Veg Seekh Kebab", price:140},{name:"Stuffed Mushrooms", price:160},{name:"Hara Bhara Kebab", price:130},{name:"Cheese Balls", price:140},{name:"Veg Manchurian", price:150},{name:"Corn & Cheese Balls", price:160},{name:"Chili Paneer", price:170}], meals:[{name:"Paneer Butter Masala", price:180},{name:"Veg Biryani", price:150},{name:"Dal Tadka", price:130},{name:"Chole Bhature", price:120},{name:"Veg Thali", price:200},{name:"Paneer Tikka Masala", price:190},{name:"Veg Fried Rice", price:140},{name:"Veg Hakka Noodles", price:140},{name:"Kadai Paneer", price:180},{name:"Shahi Paneer", price:200}]},
+  NonVeg:{ starters:[{name:"Chicken Tikka", price:180},{name:"Chicken 65", price:200},{name:"Tandoori Chicken", price:250},{name:"Mutton Kebab", price:240},{name:"Prawn Fry", price:220},{name:"Fish Amritsari", price:210},{name:"Chicken Malai Tikka", price:230},{name:"Chilli Chicken", price:220},{name:"Mutton Seekh Kebab", price:250},{name:"Garlic Prawns", price:240}], meals:[{name:"Butter Chicken", price:240},{name:"Chicken Biryani", price:220},{name:"Mutton Curry", price:260},{name:"Prawn Masala", price:280},{name:"Chicken Korma", price:230},{name:"Mutton Rogan Josh", price:270},{name:"Fish Curry", price:240},{name:"Egg Curry", price:140},{name:"Keema Curry", price:220},{name:"Chicken Tandoori Thali", price:300}]},
+  Vegan:{ starters:[{name:"Vegan Salad", price:120},{name:"Tofu Skewers", price:130},{name:"Vegan Spring Rolls", price:140},{name:"Grilled Veg Platter", price:150},{name:"Vegan Pakoras", price:130},{name:"Stuffed Bell Peppers", price:140},{name:"Chili Garlic Tofu", price:150},{name:"Corn & Veg Balls", price:130},{name:"Mushroom Satay", price:140},{name:"Vegan Noodles", price:150}], meals:[{name:"Vegan Curry", price:180},{name:"Vegan Biryani", price:160},{name:"Vegan Fried Rice", price:150},{name:"Vegan Kadai Veg", price:180},{name:"Tofu Masala", price:190},{name:"Vegan Pasta", price:160},{name:"Stuffed Capsicum", price:170},{name:"Vegan Burger", price:150},{name:"Vegan Pizza", price:200},{name:"Mixed Veg Stir Fry", price:140}]},
+  Eggatarian:{ starters:[{name:"Boiled Eggs (2)", price:50},{name:"Masala Omelette", price:90},{name:"Egg Pakora", price:120},{name:"Egg Spring Rolls", price:130},{name:"Deviled Eggs", price:140},{name:"Egg Salad", price:110},{name:"Egg Tacos", price:150},{name:"Egg Bhurji", price:100},{name:"Egg Croquettes", price:130},{name:"Egg Muffins", price:120}], meals:[{name:"Egg Curry", price:140},{name:"Egg Biryani", price:160},{name:"Egg Fried Rice", price:150},{name:"Egg Masala Dosa", price:160},{name:"Egg Sandwich", price:140},{name:"Egg Noodles", price:150},{name:"Egg Roll", price:130},{name:"Egg Pulao", price:160},{name:"Egg Korma", price:180},{name:"Egg Bharta", price:150}]},
+  Desserts:{ starters:[{name:"Mango Juice", price:80},{name:"Orange Juice", price:70},{name:"Apple Juice", price:75},{name:"Pineapple Juice", price:80},{name:"Watermelon Juice", price:70},{name:"Lemon Mint Juice", price:60},{name:"Grapes Juice", price:75},{name:"Strawberry Smoothie", price:90},{name:"Banana Smoothie", price:85},{name:"Mojito Mocktail", price:100},{name:"Virgin Pina Colada", price:110},{name:"Blue Lagoon Mocktail", price:120},{name:"Sunrise Mocktail", price:110},{name:"Cucumber Cooler", price:90},{name:"Tropical Punch", price:100}], meals:[{name:"Chocolate Cake", price:100},{name:"Gulab Jamun", price:80},{name:"Rasmalai", price:90},{name:"Ice Cream Sundae", price:120},{name:"Brownie with Ice Cream", price:150},{name:"Strawberry Cheesecake", price:140},{name:"Fruit Custard", price:90},{name:"Kaju Katli", price:120},{name:"Jalebi", price:80},{name:"Mango Pudding", price:100}]}
+};
+
+function showPage(id){
+  pages.forEach(p=>p.style.display="none");
+  document.getElementById(id).style.display="flex";
+}
+
+function showItems(category){
+  showPage('items');
+  document.getElementById("categoryTitle").innerText = category + " Menu";
+
+  const startersHTML = menuItems[category].starters
+    .map(i => `<li onclick="addToBill('${i.name}', ${i.price})">${i.name} <span>₹${i.price}</span></li>`).join('') || "<li>No starters</li>";
+  const mealsHTML = menuItems[category].meals
+    .map(i => `<li onclick="addToBill('${i.name}', ${i.price})">${i.name} <span>₹${i.price}</span></li>`).join('');
+
+  if(category==="Desserts"){
+    document.querySelector('#starterList h3').innerText="🥤 Juices & Mocktails";
+    document.querySelector('#mealList h3').innerText="🍰 Desserts";
+  } else{
+    document.querySelector('#starterList h3').innerText="🥢 Starters";
+    document.querySelector('#mealList h3').innerText="🍽 Full Meals";
+  }
+
+  document.querySelector('#starterList ul').innerHTML = startersHTML;
+  document.querySelector('#mealList ul').innerHTML = mealsHTML;
+  updateSelectedItems();
+}
+
+function addToBill(item, price){
+  billList.push({item, price});
+  total += price;
+  updateBill();
+  updateSelectedItems();
+}
+
+function removeFromBill(idx){
+  total -= billList[idx].price;
+  billList.splice(idx,1);
+  updateBill();
+  updateSelectedItems();
+}
+
+function updateBill(){
+  document.getElementById('billItems').innerHTML = billList.map(i=>`<div class="bill-item"><span>${i.item}</span><span>₹${i.price}</span></div>`).join('');
+  document.getElementById('billTotal').innerText = `Total: ₹${total}`;
+}
+
+function updateSelectedItems(){
+  const selDiv = document.getElementById("selectedList");
+  if(billList.length===0) selDiv.innerHTML="No items added yet.";
+  else selDiv.innerHTML = billList.map((i,idx)=>`<div class="sel-item"><span>${i.item}</span><span>₹${i.price}</span><span class="cancel-btn" onclick="removeFromBill(${idx})">✖</span></div>`).join('');
+}
+
+function confirmBill(){ showPage('thankyou'); }
+
+showPage('home');
+</script>
+</body>
+</html>
